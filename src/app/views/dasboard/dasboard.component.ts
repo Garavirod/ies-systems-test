@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dasboard.component.css']
 })
 export class DasboardComponent implements OnInit {
-  showFiller = true;
+  showFiller = false;
   constructor() { }
 
   ngOnInit(): void {
