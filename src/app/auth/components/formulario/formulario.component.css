@@ -1,0 +1,23 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.container{
+    background-color: rgb(68, 64, 73);
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.formulario{
+    width: 60%;    
+    margin: auto;    
+}
+
+.formulario form{
+    display: flex;
+    flex-direction: column;
+}
