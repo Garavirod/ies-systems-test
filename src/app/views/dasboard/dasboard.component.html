@@ -1,5 +1,5 @@
 <mat-drawer-container class="example-container">
-    <mat-drawer id="sidebar" mode="side" opened="false">
+    <mat-drawer id="sidebar" mode="side" [opened]="showSideNav">
         <mat-list>
             <mat-list-item>
                 <a mat-flat-button [routerLink]="['auth/componenteuno']">Componente 1</a>
@@ -10,7 +10,7 @@
             </mat-list-item>
             <mat-divider></mat-divider>
             <mat-list-item>
-                <button mat-flat-button color="primary">Logout</button>
+                <button mat-flat-button color="primary" (click)="logout()">Logout</button>
             </mat-list-item>
           </mat-list>
     </mat-drawer>

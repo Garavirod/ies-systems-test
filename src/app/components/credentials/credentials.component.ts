@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { VirtualTimeScheduler } from 'rxjs';
 import { CredentialsService } from 'src/app/services/credentials.service';
 
 @Component({
@@ -43,7 +44,11 @@ export class CredentialsComponent implements OnInit {
         if(res.resultado){
           /* Si el rol es el autorizado */
           if(res.resultado.desc_rol === this.ROL_AUTH){
+            // guardamos un elemento en el sotorage para simular una sesión
             localStorage.setItem('session',this.ROL_AUTH);
+            //activamos la bandera para mostra el sidebar
+            this.credeService.userLogged$.emit(true); 
+            // redireccionamos al dashboard
             this.router.navigateByUrl('auth');
           }else{
             this.openSnackBar("Acceso no autorizado", "Rol");        
