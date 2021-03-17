@@ -14,6 +14,12 @@ export class CredentialsService {
   }
 
   isUserLoggedIn(){
-    return true;
+    const item = localStorage.getItem('session');
+    if(item){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 }

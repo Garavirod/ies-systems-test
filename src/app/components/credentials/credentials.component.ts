@@ -44,7 +44,7 @@ export class CredentialsComponent implements OnInit {
           /* Si el rol es el autorizado */
           if(res.resultado.desc_rol === this.ROL_AUTH){
             localStorage.setItem('session',this.ROL_AUTH);
-            //this.router.navigateByUrl('');
+            this.router.navigateByUrl('auth');
           }else{
             this.openSnackBar("Acceso no autorizado", "Rol");        
           }
