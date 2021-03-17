@@ -4,7 +4,7 @@
             <form action="" autocomplete="off" [formGroup]="form" (ngSubmit)="enviar()">
                 <!-- Date piker -->
                 <mat-form-field appearance="fill">
-                    <mat-label>Seleccione una fecha</mat-label>
+                    <mat-label>Fecha reserva</mat-label>
                     <input matInput [min]="minDate" [max]="maxDate" formControlName="fecha" [matDatepicker]="picker">
                     <mat-datepicker-toggle  matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker  #picker></mat-datepicker>
@@ -26,7 +26,7 @@
                     <input formControlName="mail" matInput>
                     <mat-error>
                         Introduza una direacción de correo válida. 
-                        <b>No se permiten los correos gmail o hotmail</b>  
+                        <b>Considere que no se permiten los correos gmail o hotmail</b>  
                     </mat-error>                   
                 </mat-form-field>
                 <!-- Pais -->

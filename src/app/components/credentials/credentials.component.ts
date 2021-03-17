@@ -11,8 +11,6 @@ import { CredentialsService } from 'src/app/services/credentials.service';
   styleUrls: ['./credentials.component.css']
 })
 export class CredentialsComponent implements OnInit {
-  /* rol autorizado */
-  private ROL_AUTH  = 'DISTRIBUIDOR';
   /* Formulario de grupo */
   form:FormGroup;
   /* variable para mostrar o no la contraseña */
@@ -43,9 +41,9 @@ export class CredentialsComponent implements OnInit {
         /* si hubo respuesta del server */
         if(res.resultado){
           /* Si el rol es el autorizado */
-          if(res.resultado.desc_rol === this.ROL_AUTH){
-            // guardamos un elemento en el sotorage para simular una sesión
-            localStorage.setItem('session',this.ROL_AUTH);
+          if(res.resultado.desc_rol === this.credeService.ROL_AUTH){
+            // guardamos un elemento hasheado en el sotorage para simular una sesión
+            localStorage.setItem('session',this.credeService.gethashRol());
             //activamos la bandera para mostra el sidebar
             this.credeService.userLogged$.emit(true); 
             // redireccionamos al dashboard
