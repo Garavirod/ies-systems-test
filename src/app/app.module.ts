@@ -9,6 +9,10 @@ import { DasboardComponent } from './views/dasboard/dasboard.component';
 import { OneComponent } from './components/one/one.component';
 import { CredentialsComponent } from './components/credentials/credentials.component';
 import { FormularioComponent } from './components/formulario/formulario.component';
+// formularos reactivos
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+// Peticones http module
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,9 @@ import { FormularioComponent } from './components/formulario/formulario.componen
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
