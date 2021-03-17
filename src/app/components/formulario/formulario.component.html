@@ -5,9 +5,9 @@
                 <!-- Date piker -->
                 <mat-form-field appearance="fill">
                     <mat-label>Seleccione una fecha</mat-label>
-                    <input matInput formControlName="fecha" [matDatepicker]="picker">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
+                    <input matInput [min]="minDate" [max]="maxDate" formControlName="fecha" [matDatepicker]="picker">
+                    <mat-datepicker-toggle  matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker  #picker></mat-datepicker>
                     <mat-error>
                         Seleccione una fecha valida
                     </mat-error>

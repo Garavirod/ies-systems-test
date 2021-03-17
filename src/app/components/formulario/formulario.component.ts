@@ -10,22 +10,35 @@ import { PaisesService } from 'src/app/services/paises.service';
 })
 export class FormularioComponent implements OnInit {
   
+  minDate = new Date();
+  maxDate =  new Date();
+
   form:FormGroup;
   paises:Array<string>;
 
   constructor(private fb:FormBuilder, private psisesService:PaisesService) {
+
     this.paises = [];
     this.form = this.fb.group({});
     this.initForm();    
   }
 
   ngOnInit(): void {
+    this.setDates();
     this.fillPaises();
   }
 
   /* Verifica si los campos del formulario son validos */
   isValidForm(){
     return this.form.invalid;
+  }
+
+  /* Dates */
+  setDates(){
+    let today = new Date();
+    this.minDate.setMonth(today.getMonth() - 11);
+    this.maxDate.setDate(today.getDate() + 1);
+    
   }
 
   /* rellena el arreglo de paises que esl servico provee */
