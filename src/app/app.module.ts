@@ -7,12 +7,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './modules/material.module';
 import { DasboardComponent } from './views/dasboard/dasboard.component';
 import { OneComponent } from './components/one/one.component';
+import { CredentialsComponent } from './components/credentials/credentials.component';
+import { FormularioComponent } from './components/formulario/formulario.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DasboardComponent,
-    OneComponent
+    OneComponent,
+    CredentialsComponent,
+    FormularioComponent
   ],
   imports: [
     BrowserModule,

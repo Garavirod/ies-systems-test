@@ -1,1 +1,20 @@
-<p>dasboard works!</p>
+<mat-drawer-container class="example-container">
+    <mat-drawer id="sidebar" mode="side" opened>
+        <mat-list>
+            <mat-list-item>
+                <a mat-flat-button [routerLink]="['/onecomponent']">Componente 1</a>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+                <a mat-flat-button [routerLink]="['/formulario']">Dashboard</a>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+                <button mat-flat-button color="primary">Logout</button>
+            </mat-list-item>
+          </mat-list>
+    </mat-drawer>
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
