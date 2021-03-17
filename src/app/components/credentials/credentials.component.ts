@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { CredentialsService } from 'src/app/services/credentials.service';
 
 @Component({
   selector: 'app-credentials',
@@ -8,14 +10,18 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrls: ['./credentials.component.css']
 })
 export class CredentialsComponent implements OnInit {
+  /* rol autorizado */
+  private ROL_AUTH  = 'DISTRIBUIDOR';
+  /* Formulario de grupo */
   form:FormGroup;
   /* variable para mostrar o no la contraseña */
   hide = true;
-  /* Variables para el mensaje del toast alert */
-  private message = "No auotrizado";
-  private action = "Autenticación";
 
-  constructor(private fb:FormBuilder,private _snackBar: MatSnackBar) { 
+  constructor(
+    private router:Router,
+    private credeService:CredentialsService,
+    private fb:FormBuilder,
+    private _snackBar: MatSnackBar) { 
     this.form = this.fb.group({});
     this.initForm();
   }
@@ -23,17 +29,42 @@ export class CredentialsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /* Autentica al usuario segun el response del service */
   login(){
+    /* Credernciales a mandar al server */
     const cred_user = {
       "usuario":this.form.get('username')?.value,
       "contrasena":this.form.get('password')?.value
     }
-    console.log(cred_user);    
-    this.openSnackBar();
+    /* Subscripción al servicio */
+    this.credeService.userLogin(cred_user).subscribe(
+      (res:any)=>{
+        /* si hubo respuesta del server */
+        if(res.resultado){
+          /* Si el rol es el autorizado */
+          if(res.resultado.desc_rol === this.ROL_AUTH){
+            localStorage.setItem('session',this.ROL_AUTH);
+            //this.router.navigateByUrl('');
+          }else{
+            this.openSnackBar("Acceso no autorizado", "Rol");        
+          }
+        }else{
+          /* Credenciales incorrectas */
+          this.openSnackBar("Credenciales incorrectas", "Autenticación");        
+        }               
+      },
+      (err)=>{
+        console.log(err);
+        /* Hubo un error al realizar la peticion en el servicio */
+        this.openSnackBar("Hubo un error al autenticar", "Error");        
+      }
+    )  
+    
   }
 
-  openSnackBar() {
-    this._snackBar.open(this.message, this.action, {
+  /* Muestra una alerta al usuario sobre el estado de la autenticacion */
+  openSnackBar(message:string, action:string) {
+    this._snackBar.open(message, action, {
       duration: 2000,
     });
   }
