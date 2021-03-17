@@ -1,41 +1,46 @@
 <div class="container">
     <div class="formulario">
         <mat-card>
-            <form action="">
+            <form action="" autocomplete="off" [formGroup]="form" (ngSubmit)="enviar()">
                 <!-- Date piker -->
-                <mat-form-field class="example-form-field" appearance="fill">
-                    <mat-label>First campaign</mat-label>
-                    <mat-date-range-input
-                      [formGroup]="campaignOne"
-                      [rangePicker]="campaignOnePicker"
-                      [comparisonStart]="campaignTwo.value.start"
-                      [comparisonEnd]="campaignTwo.value.end">
-                      <input matStartDate placeholder="Start date" formControlName="start">
-                      <input matEndDate placeholder="End date" formControlName="end">
-                    </mat-date-range-input>
-                    <mat-datepicker-toggle matSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
-                    <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
-                  </mat-form-field>
-                  <!-- Nombre -->
-                  <mat-form-field appearance="fill">
+                <mat-form-field appearance="fill">
+                    <mat-label>Seleccione una fecha</mat-label>
+                    <input matInput formControlName="fecha" [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error>
+                        Seleccione una fecha valida
+                    </mat-error>
+                </mat-form-field>
+                <!-- Nombre -->
+                <mat-form-field appearance="fill">
                     <mat-label>Nombre</mat-label>
-                    <input matInput>
-                  </mat-form-field>
-                  <!-- Correo -->
-                  <mat-form-field appearance="fill">
+                    <input formControlName="name" matInput>
+                    <mat-error>
+                        Este campo es requerido.
+                    </mat-error>
+                </mat-form-field>               
+                <!-- Correo -->
+                <mat-form-field appearance="fill">
                     <mat-label>Correo</mat-label>
-                    <input matInput>
-                  </mat-form-field>
-                  <!-- Pais -->
-                  <mat-form-field appearance="fill">
+                    <input formControlName="mail" matInput>
+                    <mat-error>
+                        Introduza una direacción de correo válida.
+                    </mat-error>
+                </mat-form-field>
+                <!-- Pais -->
+                <mat-form-field appearance="fill">
                     <mat-label>Pais</mat-label>
-                    <mat-select>
-                      <mat-option value="one">First option</mat-option>
-                      <mat-option value="two">Second option</mat-option>
+                    <mat-select formControlName="pais">
+                        <mat-option value="one">First option</mat-option>
+                        <mat-option value="two">Second option</mat-option>
                     </mat-select>
-                  </mat-form-field>
-                  <!-- Submit -->
-                <button mat-raised-button color="primary">Primary</button>
+                    <mat-error>
+                        Seleccione un pais.
+                    </mat-error>
+                </mat-form-field>
+                <!-- Submit -->
+                <button [disabled]="isValidForm()" mat-raised-button color="primary">Enviar</button>
             </form>
         </mat-card>
     </div>
