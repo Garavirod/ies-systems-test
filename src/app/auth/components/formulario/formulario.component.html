@@ -9,7 +9,7 @@
                     <mat-datepicker-toggle  matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker  #picker></mat-datepicker>
                     <mat-error>
-                        Seleccione una fecha valida
+                        Seleccione una fecha válida
                     </mat-error>
                 </mat-form-field>
                 <!-- Nombre -->
@@ -17,7 +17,7 @@
                     <mat-label>Nombre</mat-label>
                     <input formControlName="name" matInput>
                     <mat-error>
-                        Este campo es requerido.
+                        Este campo es requerido (minimo 6 caracteres).
                     </mat-error>
                 </mat-form-field>               
                 <!-- Correo -->
@@ -25,8 +25,9 @@
                     <mat-label>Correo</mat-label>
                     <input formControlName="mail" matInput>
                     <mat-error>
-                        Introduza una direacción de correo válida.
-                    </mat-error>
+                        Introduza una direacción de correo válida. 
+                        <b>No se permiten los correos gmail o hotmail</b>  
+                    </mat-error>                   
                 </mat-form-field>
                 <!-- Pais -->
                 <mat-form-field appearance="fill">

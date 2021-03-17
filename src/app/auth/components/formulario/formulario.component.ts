@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@ang
 import { pipe } from 'rxjs';
 import {map, filter} from 'rxjs/operators';
 import { PaisesService } from 'src/app/services/paises.service';
+import { ValidatorsService } from 'src/app/services/validators.service';
 @Component({
   selector: 'app-formulario',
   templateUrl: './formulario.component.html',
@@ -10,22 +11,25 @@ import { PaisesService } from 'src/app/services/paises.service';
 })
 export class FormularioComponent implements OnInit {
   
+  // fecha mínima y máxima
   minDate = new Date();
   maxDate =  new Date();
+  form:FormGroup; // formulario que hospeda los inputs
+  paises:Array<string>; //colección de paises 
 
-  form:FormGroup;
-  paises:Array<string>;
-
-  constructor(private fb:FormBuilder, private psisesService:PaisesService) {
-
+  constructor(
+    private customValidator:ValidatorsService,
+    private fb:FormBuilder, 
+    private psisesService:PaisesService
+    ) {
     this.paises = [];
     this.form = this.fb.group({});
-    this.initForm();    
+    this.initForm(); // inicializa al fromulario con todos su campos y reglas
   }
 
   ngOnInit(): void {
-    this.setDates();
-    this.fillPaises();
+    this.setDates(); // establece los rangos de fecha permitido
+    this.fillPaises(); // usa el servicio para llenar la coleccion de paises
   }
 
   /* Verifica si los campos del formulario son validos */
@@ -35,8 +39,10 @@ export class FormularioComponent implements OnInit {
 
   /* Dates */
   setDates(){
-    let today = new Date();
+    let today = new Date(); // fecah actual
+    // La fecha mínima sera 11 meses atra a aprtri de la actual
     this.minDate.setMonth(today.getMonth() - 11);
+    // la fecah maxima serla solo un dia mas a prtir de la fecha actual
     this.maxDate.setDate(today.getDate() + 1);
     
   }
@@ -44,21 +50,31 @@ export class FormularioComponent implements OnInit {
   /* rellena el arreglo de paises que esl servico provee */
   fillPaises(){
     this.psisesService.getPaisesAPI()
-    .pipe(      
+    .pipe(
+      //obtenemos solo los obj de los paises retronados      
       map((e:any) => (Object.values(e.data)))
     )    
     .subscribe(
-      (res:any)=>{              
+      (res:any)=>{
+        // de los obj retornado solo nos interesa el pais              
         let paises_filtered = res.map((e:any) => (e.country)); 
-        this.paises = paises_filtered;       
-        console.log(this.paises);         
+        this.paises = paises_filtered; // asignamso los paises a la colección       
+        //console.log(this.paises);         
       },
       (err)=>{
+        // error en el serivicio
         console.log(err); 
       }
     )
   }
 
+  /* 
+    Estructura un fromulario con sus respectivos campos y validaciones 
+    nombre : name
+    mail : correo
+    pais,
+    fecha
+  */
   initForm(){
     this.form = this.fb.group({
       name:['',[
@@ -67,8 +83,9 @@ export class FormularioComponent implements OnInit {
       ],      
     ],
     mail:['',[
-      Validators.required,
-      Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")
+        Validators.required,
+        Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"),
+        this.customValidator.emailAllowed
       ]
     ],
     pais:['',[
@@ -82,9 +99,9 @@ export class FormularioComponent implements OnInit {
     })
   }
 
+  /* simula el envio de la inrformación, solo la muestra en consola */
   enviar(){
-    console.log(this.form);
-    
+    console.log(this.form.value);    
   }
 
 }
