@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { pipe } from 'rxjs';
+import {map, filter} from 'rxjs/operators';
+import { PaisesService } from 'src/app/services/paises.service';
 @Component({
   selector: 'app-formulario',
   templateUrl: './formulario.component.html',
@@ -8,18 +11,39 @@ import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@ang
 export class FormularioComponent implements OnInit {
   
   form:FormGroup;
+  paises:Array<string>;
 
-  constructor(private fb:FormBuilder) {
+  constructor(private fb:FormBuilder, private psisesService:PaisesService) {
+    this.paises = [];
     this.form = this.fb.group({});
-    this.initForm();
-    
+    this.initForm();    
   }
 
   ngOnInit(): void {
+    this.fillPaises();
   }
 
+  /* Verifica si los campos del formulario son validos */
   isValidForm(){
     return this.form.invalid;
+  }
+
+  /* rellena el arreglo de paises que esl servico provee */
+  fillPaises(){
+    this.psisesService.getPaisesAPI()
+    .pipe(      
+      map((e:any) => (Object.values(e.data)))
+    )    
+    .subscribe(
+      (res:any)=>{              
+        let paises_filtered = res.map((e:any) => (e.country)); 
+        this.paises = paises_filtered;       
+        console.log(this.paises);         
+      },
+      (err)=>{
+        console.log(err); 
+      }
+    )
   }
 
   initForm(){
