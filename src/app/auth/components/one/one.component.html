@@ -1,1 +1,10 @@
-<p>one works!</p>
+<mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile class="btn-eje">               
+        <button mat-flat-button color="primary" (click)="refactor()">Ejercicio 1</button>
+    </mat-grid-tile>
+    <mat-grid-tile>{{output_1 | json}}</mat-grid-tile>
+    <mat-grid-tile>              
+        <button mat-flat-button color="primary" (click)="refactorInverso()">Ejercicio 2</button>
+    </mat-grid-tile>
+    <mat-grid-tile>{{output_2 | json}}</mat-grid-tile>
+</mat-grid-list>

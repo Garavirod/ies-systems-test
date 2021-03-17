@@ -13,7 +13,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-
+import {MatGridListModule} from '@angular/material/grid-list';
 let material_components = [
     MatToolbarModule,
     MatButtonModule,
@@ -29,6 +29,7 @@ let material_components = [
     MatInputModule,
     MatIconModule,
     MatSnackBarModule,
+    MatGridListModule,
 ]
 
 @NgModule({
