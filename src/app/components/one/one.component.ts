@@ -29,8 +29,7 @@ export class OneComponent implements OnInit {
 
     for(const property in obj){
       new_arr.push({'name':property, 'value':obj[property]});
-    }
-    
+    }    
     console.log(new_arr);
     return new_arr;            
   }
